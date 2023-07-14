@@ -1,0 +1,19 @@
+<h1>Categories</h1>
+<table>
+    <thead>
+        <tr>
+            <td>one</td>
+            <td>two</td>
+            <td>three</td>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            foreach($this->data["categories-names"] as $category)
+            {
+                ?>
+                <tr><?=$category?></tr><?php
+            }
+        ?>
+    </tbody>
+</table>

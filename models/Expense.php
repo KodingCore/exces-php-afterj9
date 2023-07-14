@@ -6,9 +6,9 @@ class Expense
     private int $amount;
     private DateTime $date;
 
-    public function __construct(?int $id, string $name, int $amount, DateTime $date)
+    public function __construct(string $name, int $amount, DateTime $date)
     {
-        $this->id = $id;
+        $this->id = null;
         $this->name = $name;
         $this->amount = $amount;
         $this->date = $date;

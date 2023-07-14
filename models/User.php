@@ -6,9 +6,9 @@ class User
     private string $username;
     private string $password;
 
-    public function __construct(?int $id, string $email, string $username, string $password)
+    public function __construct(string $email, string $username, string $password)
     {
-        $this->id = $id;
+        $this->id = null;
         $this->email = $email;
         $this->username = $username;
         $this->password = $password;
