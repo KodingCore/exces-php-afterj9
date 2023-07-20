@@ -9,9 +9,27 @@ class CategoryManager extends AbstractManager{
         $categoriesTab = [];
         foreach($categories as $category)
         {
-            $categoryInstance = new Category($category->getName(), $category->getExpenseId());
+            $categoryInstance = new Category($category["name"], $category["user_id"]);
+            $categoryInstance->setId($category["id"]);
             array_push($categoriesTab, $categoryInstance);
         }
+        
+        return $categoriesTab;
+    }
+
+    function getCategoriesByUsername() : array
+    {
+        $query = $this->db->prepare('SELECT * FROM categories');
+        $query->execute();
+        $categories = $query->fetchAll(PDO::FETCH_ASSOC);
+        $categoriesTab = [];
+        foreach($categories as $category)
+        {
+            $categoryInstance = new Category($category["name"], $category["user_id"]);
+            $categoryInstance->setId($category["id"]);
+            array_push($categoriesTab, $categoryInstance);
+        }
+        
         return $categoriesTab;
     }
 
@@ -23,23 +41,20 @@ class CategoryManager extends AbstractManager{
         $categoriesTab = [];
         foreach($categories as $category)
         {
-            $categoryInstance = new Category($category->getName(), $category->getExpenseId());
+            $categoryInstance = new Category($category->getName(), $category->getUserId());
             array_push($categoriesTab, $categoryInstance);
         }
         return $categoriesTab;
     }
 
-    function insertCategory(Category $category) : Category
+    function insertCategory(Category $category) : void
     {
-        $query = $this->db->prepare("INSERT INTO categories(name, expense_id) VALUES(:name, :expense_id')");
+        $query = $this->db->prepare("INSERT INTO categories(name) VALUES(:name)");
         $parameters = [
-            'name' => $category->getName(),
-            'expense_id' => $category->getExpenseId()
+            'name' => $category->getName()
         ];
         $query->execute($parameters);
-        $category = $query->fetch(PDO::FETCH_ASSOC);
-        $categoryInstance = new Category($category->getName(), $category->getExpenseId());
-        return $categoryInstance;
+        // $category = $query->fetch(PDO::FETCH_ASSOC);
     }
 
     function deleteCategory(Category $category) : Category

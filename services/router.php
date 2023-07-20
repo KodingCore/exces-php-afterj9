@@ -5,39 +5,29 @@ function checkRoute(string $route)
     $userController = new UserController();
     $categoryController = new CategoryController();
 
-    if(isset($_SESSION["user"]))
-    {
-        require 'views/users/connected/_header.phtml';
+    
         if($route === "cactegories")
         {
-            $categoryController->displayAllCategories();
+            $categoryController->index();
+        }
+        else if($route === "add-category")
+        {
+            $categoryController->addCategory();
         }
         else if($route === "expenses")
         {
             // require "views/".$route."/".$route.".phtml";
-        }
-    }
-    else
-    {
-        require 'views/users/guest/_header.phtml';
-        if($route === "login")
+        }else if($route === "login")
         {
             $userController->login();
         }
         else if($route === "register")
         {
             $userController->register();
+        }else if($route === "account"){
+
         }else{
             $userController->login();
         }
-    }
 
-    if(isset($_SESSION["user"]))
-    {
-        require 'views/users/connected/_footer.phtml';
-    }
-    else{
-        require 'views/users/guest/_footer.phtml';
-    }
-    
 }

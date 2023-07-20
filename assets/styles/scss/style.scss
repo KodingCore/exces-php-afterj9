@@ -1,0 +1,130 @@
+html{
+    $nbrRows : 6;
+    $nbrCols : 3;
+    body{
+        font-family: "Roboto Mono", cursive, sans-serif ;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(6, calc(100vh / 6));
+        h1{
+            grid-row: 2 / 3;
+            grid-column: 1 / 4;
+            color:rgba(52, 152, 235, 0.849);
+            text-shadow: 0px 1rem 0.5rem rgb(40, 152, 197);
+            text-align: center;
+            top:0;
+            text-transform: uppercase;
+        }
+        table{
+            grid-row: auto;
+            grid-column: 2 / 3;
+            thead{
+                tr{
+                    th{
+                        
+                        border: solid;
+                    }
+                }
+            }
+            tbody{
+                tr{
+                    td{
+                        padding-left: 1rem;
+                        border: 1px dashed;
+                    }
+                }
+            }
+        }
+        header{
+            grid-row: 1 / 2;
+            grid-column : 1 / 4;
+            background: linear-gradient(#b9d2ff, white);
+            nav{
+                ul:first-child{
+                    top: 15%;
+                }
+            }
+            
+        
+        }
+        .form
+        {
+            position: relative;
+            height: auto;
+            margin: auto auto;
+            grid-row: 2 / 5;
+            grid-column : 2 / 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-bottom: darkblue 1px;
+            h2{
+                color:rgba(52, 152, 235, 0.849);
+                text-shadow: 0px 1rem 0.5rem rgb(40, 152, 197);
+                text-align: center;
+                top:0;
+                text-transform: uppercase;
+            }
+            form{
+                display: flex;
+                flex-direction: column;
+                width: 15%;
+                align-items: center;
+                label{
+                    margin-top: 0.75rem;
+                    color:rgba(52, 152, 235, 0.849);
+                    text-shadow: 0px 1rem 0.5rem rgb(40, 152, 197);
+                    font-size: 1.25rem;
+                }
+                input{
+                    margin-top: 0.5rem;
+                    margin-bottom: 0.75rem;
+                }
+                input[type="submit"]{
+                    margin-top: 1.5rem;
+                    border-radius: 20px;
+                    width: 100px;
+                    background-color: rgb(40, 152, 197);
+                    color: white;
+                }
+                .advert{
+                    color: red;
+                }
+            }
+        }
+        
+        footer{
+            grid-row: 6 / 7;
+            grid-column : 1 / 4;
+            background: linear-gradient(white, #b9d2ff);
+            nav{
+                ul{
+                    bottom: 15%;
+                }
+            }
+        }
+    }
+}
+nav{
+    position: relative;
+    height: 100%;
+    ul{
+        list-style-type: none;
+        position: absolute;
+        li{
+            
+            display: inline;
+            margin: 1rem;
+            a{
+                font-size: 0.85rem;
+                color:rgb(40, 152, 197);
+            }
+        }
+    }
+    
+
+}
+

@@ -1,15 +1,26 @@
 <?php
 class CategoryController extends AbstractController{
-    function displayAllCategories()
+    function index()
     {
         $categoryManager = new CategoryManager();
         $categoriesTab = $categoryManager->getAllCategories();
-        $categoriesNames = [];
-        foreach($categoriesTab as $category)
+        $this->render('views/categories/categories.phtml', ["userId" => $this->data["userId"], "categories" => $categoriesTab]);
+    }
+
+    function addCategory()
+    {
+        $categoryManager = new CategoryManager();
+        if(isset($_POST["name"]))
         {
-            array_push($categoriesNames, $category->getName());
+            $categorie = new Category($_POST["name"]);
+            $categoryManager->insertCategory($categorie);
+            $this->render('views/categories/categories.phtml', ["userId" => $this->data["userId"]]);
+        }else{
+            $this->render('views/categories/add-category.phtml', ["userId" => $this->data["userId"]]);
         }
-        $this->render('views/categories/categories.phtml', ["categories-names" => $categoriesNames]);
+        
+        
+        
     }
 }
 

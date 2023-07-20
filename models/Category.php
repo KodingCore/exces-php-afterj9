@@ -3,13 +3,13 @@ class Category
 {
     private ?int $id;
     private string $name;
-    private int $expense_id;
+    private ?int $user_id;
 
-    public function __construct(string $name, int $expense_id)
+    public function __construct(string $name)
     {
         $this->id = null;
         $this->name = $name;
-        $this->expense_id = $expense_id;
+        $this->user_id = null;
     }
 
     public function getId() : int
@@ -32,12 +32,12 @@ class Category
         $this->name = $name;
     }
 
-    public function getExpenseId() : int
+    public function getUserId() : ?int
     {
-        return $this->expense_id;
+        return $this->user_id;
     }
 
-    public function setExpenseId(int $id)
+    public function setUserId(int $id)
     {
         $this->id = $id;
     }

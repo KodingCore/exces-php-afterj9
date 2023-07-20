@@ -6,12 +6,14 @@ class UserController extends AbstractController{
         
         if(isset($_POST["email"], $_POST["password"]))
         {
+            $password = $_POST["password"];
             $userManager = new UserManager();
             $user = $userManager->getUserByEmail($_POST["email"]);
-            $isValid = password_verify($_POST["password"], $user->getPassword());
-            if($isValid)
+            $hash = $user->getPassword();
+            if(password_verify($password, $hash))
             {
-                $this->render('views/categories/categories.phtml', ["user" => $user]);
+                $_SESSION["user"] = $user->getId();
+                $this->render('views/categories/categories.phtml', ["userId" => $_SESSION["user"]]);
             }else{
                 $this->render('views/users/login.phtml', []);
             }
@@ -27,21 +29,34 @@ class UserController extends AbstractController{
     {
         if(isset($_POST['username'], $_POST["email"], $_POST["password"], $_POST["confirm_password"]))
         {
-            $username = $_POST["username"];
             $email = $_POST["email"];
+
+            $username = $_POST["username"];
+            
             $password = $_POST["password"];
             $confirm_password = $_POST["confirm_password"];
             if($password === $confirm_password)
             {
                 $password = password_hash($password, PASSWORD_DEFAULT);
                 $userManager = new UserManager();
-                $newUser = new User($email, $username, $password);
-                $userManager->insertUser($newUser);
-                $this->render('views/users/login.phtml', []);
+                $newUser = new User($username, $email, $password);
+
+                $response = $userManager->checkInfosExists($newUser);
+
+                if($response != "")
+                {
+                    $this->render('views/users/register.phtml', ["message" => $response]);
+                }
+                else
+                {
+                    $this->render('views/users/login.phtml', ["username" => $newUser->getUsername()]);
+                }
+                
+                
             }
             else
             {
-                $this->render('views/users/register.phtml', []);
+                $this->render('views/users/register.phtml', ["message" => "Les password sont différents"]);
             }
         }
         else
