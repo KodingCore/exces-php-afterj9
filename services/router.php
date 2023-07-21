@@ -26,7 +26,9 @@ function checkRoute(string $route)
             $userController->register();
         }else if($route === "account"){
 
-        }else{
+        }else if($route === "disconnect"){
+            unset($_SESSION["user_id"]);
+            session_destroy();
             $userController->login();
         }
 

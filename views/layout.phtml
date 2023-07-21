@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php 
-    if(isset($_SESSION["user"]))
+    if(isset($_SESSION["user_id"]))
     {
         require 'views/users/connected/_header.phtml';
     }
@@ -19,7 +19,7 @@
         require 'views/users/guest/_header.phtml';
     }
     require $this->template;
-    if(isset($_SESSION["user"]))
+    if(isset($_SESSION["user_id"]))
     {
         require 'views/users/connected/_footer.phtml';
     }

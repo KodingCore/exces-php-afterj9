@@ -9,13 +9,22 @@ class UserController extends AbstractController{
             $password = $_POST["password"];
             $userManager = new UserManager();
             $user = $userManager->getUserByEmail($_POST["email"]);
-            $hash = $user->getPassword();
-            if(password_verify($password, $hash))
+            if($user){
+                $hash = $user->getPassword();
+                
+                if(password_verify($password, $hash))
+                {
+                    $_SESSION["user_id"] = $user->getId();
+                    $this->render('views/categories/categories.phtml', ["userId" => $_SESSION["user_id"]]);
+                }
+                else
+                {
+                    $this->render('views/users/login.phtml', []);
+                }
+            }
+            else
             {
-                $_SESSION["user"] = $user->getId();
-                $this->render('views/categories/categories.phtml', ["userId" => $_SESSION["user"]]);
-            }else{
-                $this->render('views/users/login.phtml', []);
+                $this->render('views/users/login.phtml', ["message" => "Utilisateur non enrégistré"]);
             }
         }
         else
@@ -49,7 +58,8 @@ class UserController extends AbstractController{
                 }
                 else
                 {
-                    $this->render('views/users/login.phtml', ["username" => $newUser->getUsername()]);
+                    $userManager->insertUser($newUser);
+                    $this->render('views/users/login.phtml', []);
                 }
                 
                 
